@@ -1,0 +1,32 @@
+@use './assets/styles/variables.scss' as *;
+.app {
+  &-main {
+    display: grid;
+    grid-template-columns: minmax(90px, 5%) minmax(0, 95%);
+    width: 100%;
+    height: calc(100vh - 6rem);
+  }
+
+  &-content {
+    padding: 1.25rem;
+    background-color: #f0f0f0;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    overflow-y: auto;
+  }
+}
+
+.dashboard {
+  &-hello {
+    font-size: 3rem;
+    font-weight: 500;
+    color: $color-black;
+  }
+  &-username {
+    color: $color-red;
+  }
+  &-accompanying {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: $color-black;
+  }
+}
