@@ -1,29 +1,46 @@
-import myRoutes from './../../routing';
-import { NavLink } from 'react-router'
-import Logo from './../../assets/sportsee.svg';
-import './Header.scss'
-const Header = () => {
-  const filteredRoutes = myRoutes.filter(route => route?.label && route?.path)
+import { NavLink } from "react-router-dom";
+import logo from "./../../assets/logo.svg";
+import { router } from "./../../router"
 
+/**
+ * Header component displaying the navigation menu and logo
+ *
+ * @component
+ * @returns {JSX.Element} A header with logo and navigation links
+ */
+function Header() {
+  const navLinks = [];
+
+  router.routes[0].children.forEach((link) => {
+    if (link.label) {
+      navLinks.push({ to: link.path, label: link.label });
+    }
+  });
   return (
-    <header className="header">
-      <div className="header-logo-ctn">
-        <NavLink to={'/'}>
-          <img src={Logo} alt='KASA' className='header-logo' />
-          <h2 className='header-title'>SportSee</h2>
-        </NavLink>
-      </div>
-      <nav className='header-menu'>
-        <ul className='header-menu-list'>
-          {filteredRoutes.map((route, index) => (
-            <li key={index} className='header-menu-list-item'>
-              <NavLink to={route.path}>{route.label}</NavLink>
+    <header className="fixed z-20 flex min-h-23 w-full items-center bg-black pr-28 pl-7 shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+      <img
+        className="mr-36"
+        src={logo}
+        alt="logo SportSee"
+        width={178}
+        height={61}
+      />
+      <nav className="flex-1">
+        <ul className="flex justify-between text-2xl">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <NavLink
+                className="hover:text-primary-dark text-white hover:no-underline"
+                to={link.to}
+              >
+                {link.label}
+              </NavLink>
             </li>
           ))}
         </ul>
       </nav>
     </header>
-  ); 
+  );
 }
 
 export default Header;

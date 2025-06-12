@@ -1,21 +1,30 @@
-import './SideBar.scss';
-import mediationIcon from './../../assets/icons/meditation.svg';
-import swimmingIcon from './../../assets/icons/swimming.svg';
-import bikeIcon from './../../assets/icons/bike.svg';
-import bodybuildingIcon from './../../assets/icons/bodybuilding.svg';
-const SideBar = () => {
+import SidebarIcon from "./../SidebarIcon";
+
+import icon_yoga from "./../../assets/icons/icon_yoga.svg";
+import icon_swimming from "./../../assets/icons/icon_swimming.svg";
+import icon_cycling from "./../../assets/icons/icon_cycling.svg";
+import icon_bodybuilding from "./../../assets/icons/icon_bodybuilding.svg";
+
+/**
+ * Decorative sidebar displaying sport activity icons and copyright
+ * @component
+ * @returns {JSX.Element} A fixed sidebar with icons and copyright text
+ */
+function Sidebar() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <aside className="sidebar app-sidebar">
-      <nav className="sidebar-menu">
-        <ul className="sidebar-menu-list">
-          <li className="sidebar-menu-list-item"><img src={mediationIcon} alt="" /></li>
-          <li className="sidebar-menu-list-item"><img src={swimmingIcon} alt="" /></li>
-          <li className="sidebar-menu-list-item"><img src={bikeIcon} alt="" /></li>
-          <li className="sidebar-menu-list-item"><img src={bodybuildingIcon} alt="" /></li>
-        </ul>
-      </nav>
-      <p className="sidebar-copi">Copiryght, SportSee 2020</p>
+    <aside className="fixed flex h-screen w-29 flex-col items-center justify-center gap-5 bg-black">
+      <SidebarIcon icon={icon_yoga} />
+      <SidebarIcon icon={icon_swimming} />
+      <SidebarIcon icon={icon_cycling} />
+      <SidebarIcon icon={icon_bodybuilding} />
+
+      <small className="absolute bottom-28 w-max -rotate-90 text-xs font-medium text-white">
+        Copyright, SportSee {currentYear}
+      </small>
     </aside>
   );
 }
-export default SideBar;
+
+export default Sidebar;
