@@ -53,7 +53,7 @@ const formatChartData = (performanceData) => {
  * @param {Object} props.data - Raw performance data
  * @returns {JSX.Element} A radar chart showing performance metrics
  */
-function PerformanceChart({ data }) {
+const PerformanceChart = ({ data }) => {
   const formattedData = formatChartData(data);
 
   /**

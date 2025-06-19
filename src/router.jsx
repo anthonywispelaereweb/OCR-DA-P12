@@ -17,11 +17,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashBoard-mocked/:id",
-        element: <DashBoard useMockData={true}  />,
+        element: <DashBoard useMockData={true} />,
+      },
+      {
+        path: "/dashBoard-mocked-error/:id",
+        element: <DashBoard useMockData={true} redirectError={true} />,
       },
       {
         path: "/dashBoard/:id",
-        element: <DashBoard useMockData={false}  />,
+        element: <DashBoard useMockData={false} redirectError={false} />,
       },
       {
         path: "/profil",
@@ -38,7 +42,10 @@ export const router = createBrowserRouter([
         label: "Communauté",
         element: <ErrorPage /> 
       },
-
+      { 
+        path: "/error/:errorId", 
+        element: <ErrorPage /> 
+      },
       {
         path: "*", 
         element: (

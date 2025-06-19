@@ -33,7 +33,7 @@ class ApiService {
 
     for (const response of responses) {
       if (!response.ok) {
-        throw new Error("Failed to fetch data.");
+        throw new Error(response.status);
       }
     }
 
@@ -56,7 +56,6 @@ class ApiService {
       averageSessionData: averageSessionData.data,
       performanceData: performanceData.data,
     };
-    console.log("🚀 ~ ApiService ~ fetchDataApi ~ data:", data);
     return data;
   }
 
@@ -73,7 +72,7 @@ class ApiService {
     const performanceData = USER_PERFORMANCE.find(performance => performance.userId === userId);
 
     if (!userData || !activityData || !averageSessionData || !performanceData) {
-      throw new Error(`Mock data not found for userId: ${userId}`);
+      throw new Error(`404`);
     }
     let data = {
       userData: userData,
@@ -81,7 +80,6 @@ class ApiService {
       averageSessionData: averageSessionData,
       performanceData: performanceData,
     };
-    console.log("🚀 ~ ApiService ~ getMockData ~ data:", data);
     return data;
   }
 }

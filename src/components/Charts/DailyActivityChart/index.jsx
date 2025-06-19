@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 
-function DailyActivityChart({ data }) {
+const DailyActivityChart = ({ data }) => {
   return (
     <div className="h-full w-full rounded-md bg-neutral-50 text-sm font-medium">
       <ResponsiveContainer>

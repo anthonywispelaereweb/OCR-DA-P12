@@ -73,7 +73,7 @@ const formatChartData = (data) => {
  * @param {Array<{day: number, sessionLength: number}>} props.data - Raw session data
  * @returns {JSX.Element} Line chart component
  */
-function AverageSessionsChart({ data }) {
+const AverageSessionsChart = ({ data }) => {
   const formattedData = formatChartData(data);
 
   /**

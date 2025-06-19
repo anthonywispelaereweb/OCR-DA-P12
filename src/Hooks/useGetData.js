@@ -15,22 +15,25 @@ export function useGetData(userId, useMockData) {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [codeStatus, setCodeStatus] = useState(null);
 
   useEffect(() => {
     (async () => {
       try {
         if (!userId) {
+          
           throw new Error("No user ID provided.");
         }
 
         const rawData = useMockData
-          ? ApiService.getMockData(userId)
-          : await ApiService.fetchDataApi(userId);
-
+        ? ApiService.getMockData(userId)
+        : await ApiService.fetchDataApi(userId);
+        
         const formattedData = new DataFormatter(rawData);
 
         setData(formattedData);
       } catch (error) {
+        setCodeStatus(error.message);
         setHasError(true);
         console.error(error);
       } finally {
@@ -39,5 +42,5 @@ export function useGetData(userId, useMockData) {
     })();
   }, [userId, useMockData]);
 
-  return { isLoading, hasError, data };
+  return { isLoading, hasError, data, codeStatus };
 }

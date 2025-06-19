@@ -37,17 +37,17 @@ class DataFormatter {
 
     return {
       userInfos: {
-        firstName: data.userInfos?.firstName || "",
-        lastName: data.userInfos?.lastName || "",
-        age: data.userInfos?.age || 0,
+        firstName: data.userInfos?.firstName ?? "",
+        lastName: data.userInfos?.lastName ?? "",
+        age: data.userInfos?.age ?? 0,
       },
       score: validScore,
       scorePercentage: validScore * 100,
       keyData: {
-        calorieCount: data.keyData?.calorieCount || 0,
-        proteinCount: data.keyData?.proteinCount || 0,
-        carbohydrateCount: data.keyData?.carbohydrateCount || 0,
-        lipidCount: data.keyData?.lipidCount || 0,
+        calorieCount: data.keyData?.calorieCount ?? 0,
+        proteinCount: data.keyData?.proteinCount ?? 0,
+        carbohydrateCount: data.keyData?.carbohydrateCount ?? 0,
+        lipidCount: data.keyData?.lipidCount ?? 0,
       },
     };
   }
@@ -60,10 +60,10 @@ class DataFormatter {
    */
   formatActivityData(data = {}) {
     return {
-      sessions: (data.sessions || []).map((session) => ({
-        day: session.day || "",
-        kilogram: session.kilogram || 0,
-        calories: session.calories || 0,
+      sessions: (data.sessions ?? []).map((session) => ({
+        day: session.day ?? "",
+        kilogram: session.kilogram ?? 0,
+        calories: session.calories ?? 0,
       })),
     };
   }
@@ -82,7 +82,7 @@ class DataFormatter {
         )
         .map((session) => ({
           day: session.day,
-          sessionLength: session.sessionLength || 0,
+          sessionLength: session.sessionLength ?? 0,
         })),
     };
   }

@@ -2,22 +2,22 @@ import { useParams } from "react-router-dom";
 import { useGetData } from "./../Hooks/useGetData";
 import { useDelayedLoading } from "./../Hooks/useDelayedLoading";
 import usePageTitle from "./../Hooks/usePageTitle";
-import Error from "./../components/Error";
+import { useNavigate } from "react-router";
 import Loading from "./../components/Loading";
 import DailyActivityChart from "./../components/Charts/DailyActivityChart";
 import AverageSessionsChart from "./../components/Charts/AverageSessionsChart";
 import NutritionCard from "./../components/NutritionCard";
-import PerformanceChart from "./../components/Charts/PerformanceChart";
+import PerformanceChart  from "./../components/Charts/PerformanceChart";
 import ScoreChart from "./../components/Charts/ScoreChart";
 
-function Profile({ useMockData }) {
-  usePageTitle("Profil - SportSee");
-
+function DashBoard({ useMockData, redirectError = false }) {
+  usePageTitle("DashBoard - SportSee");
+  const navigate = useNavigate();
   const { id } = useParams();
   const userId = /^\d+$/.test(id) ? Number(id) : 0;
 
   // Fetch the User data
-  const { isLoading, hasError, data } = useGetData(userId, useMockData);
+  const { isLoading, hasError, data, codeStatus } = useGetData(userId, useMockData);
 
   // Control the loading component display based on loading duration
   const showLoading = useDelayedLoading(isLoading, 1200, 1200);
@@ -28,15 +28,15 @@ function Profile({ useMockData }) {
   }
 
   // Handle invalid user ID
-  if (!userId) {
-    return <Error title="404" subtitle="L'utilisateur n'a pas été trouvé." />;
+  if (!userId || codeStatus === "404") {
+    navigate("/error/404");
+    return null;
   }
 
   // Handle error fetching data
   if (hasError) {
-    return (
-      <Error title="500" subtitle="Échec de la récupération des données." />
-    );
+    navigate(`/dashBoard-mocked-error/${userId}`, { replace: true });
+    return null;
   }
 
   // Display profile if data is loaded without errors
@@ -44,6 +44,12 @@ function Profile({ useMockData }) {
     return (
       <>
         <header>
+          {redirectError && (
+            <p className="text-lg text-red-500">
+              Une erreur s'est produite lors de la récupération des données.
+            </p>
+          )}
+
           <h1 className="mb-8 text-5xl font-medium">
             Bonjour{" "}
             <span className="text-primary">
@@ -93,4 +99,4 @@ function Profile({ useMockData }) {
   }
 }
 
-export default Profile;
+export default DashBoard;
